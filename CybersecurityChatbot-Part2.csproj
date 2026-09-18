@@ -19,4 +19,9 @@
     <Page Remove="MainWindow_backup.xaml" />
 </ItemGroup>
 
+<ItemGroup>
+    <Page Remove="MainWindow_backup.xaml" />
+    <Page Remove="MainWindow_Part3_backup.xaml" />
+</ItemGroup>
+
 </Project>

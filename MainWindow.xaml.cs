@@ -8,6 +8,7 @@ namespace CybersecurityChatbot_Part2
     public partial class MainWindow : Window
     {
         private readonly Chatbot chatbot = new Chatbot();
+        private readonly TaskManager taskManager = new TaskManager();
 
 
         public MainWindow()
@@ -69,30 +70,30 @@ namespace CybersecurityChatbot_Part2
             UserInput.Clear();
         }
 
-       
 
-       private void TopicButton_Click(object sender, RoutedEventArgs e)
-{
-    if (string.IsNullOrWhiteSpace(chatbot.UserName))
-    {
-        ChatDisplay.Text +=
-            "🤖 Chatbot: Please enter your name first before selecting a topic.\n\n";
 
-        UserInput.Focus();
-        return;
-    }
+        private void TopicButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(chatbot.UserName))
+            {
+                ChatDisplay.Text +=
+                    "🤖 Chatbot: Please enter your name first before selecting a topic.\n\n";
 
-    if (sender is System.Windows.Controls.Button button)
-    {
-        string question = button.Tag?.ToString() ?? "";
+                UserInput.Focus();
+                return;
+            }
 
-        string response = chatbot.GetResponse(question);
+            if (sender is System.Windows.Controls.Button button)
+            {
+                string question = button.Tag?.ToString() ?? "";
 
-        ChatDisplay.Text +=
-            $"👤 You selected: {button.Content}\n\n" +
-            $"🤖 Chatbot: {response}\n\n";
-    }
-}
+                string response = chatbot.GetResponse(question);
+
+                ChatDisplay.Text +=
+                    $"👤 You selected: {button.Content}\n\n" +
+                    $"🤖 Chatbot: {response}\n\n";
+            }
+        }
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
             ChatDisplay.Text =
@@ -110,6 +111,66 @@ namespace CybersecurityChatbot_Part2
                 SendButton_Click(SendButton, new RoutedEventArgs());
                 e.Handled = true;
             }
+        }
+
+        private void AddTaskButton_Click(object sender, RoutedEventArgs e)
+        {
+            string task = TaskInput.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(task))
+            {
+                TaskStatusText.Text = "Please enter a cybersecurity task.";
+                return;
+            }
+
+            taskManager.AddTask(task);
+
+            TaskInput.Clear();
+
+            TaskListBox.Items.Add("⬜ " + task);
+
+            UpdateTaskStatus();
+        }
+
+        private void UpdateTaskStatus()
+        {
+            TaskStatusText.Text =
+                $"Tasks: {taskManager.Tasks.Count} | " +
+                $"Completed: {taskManager.GetCompletedCount()}";
+        }
+        private void CompleteTaskButton_Click(object sender, RoutedEventArgs e)
+        {
+            int index = TaskListBox.SelectedIndex;
+
+            if (index < 0)
+            {
+                TaskStatusText.Text = "Please select a task to complete.";
+                return;
+            }
+
+            taskManager.CompleteTask(index);
+
+            TaskListBox.Items[index] =
+                "☑ " + taskManager.Tasks[index].Description;
+
+            UpdateTaskStatus();
+        }
+
+        private void RemoveTaskButton_Click(object sender, RoutedEventArgs e)
+        {
+            int index = TaskListBox.SelectedIndex;
+
+            if (index < 0)
+            {
+                TaskStatusText.Text = "Please select a task to remove.";
+                return;
+            }
+
+            taskManager.RemoveTask(index);
+
+            TaskListBox.Items.RemoveAt(index);
+
+            UpdateTaskStatus();
         }
     }
 }
