@@ -140,6 +140,23 @@ namespace CybersecurityChatbot_Part2
                 $"Tasks: {taskManager.Tasks.Count} | " +
                 $"Completed: {taskManager.GetCompletedCount()}";
         }
+
+        private void ClearAllTasksButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (taskManager.Tasks.Count == 0)
+            {
+                TaskStatusText.Text = "There are no tasks to clear.";
+                return;
+            }
+
+            taskManager.Tasks.Clear();
+            TaskListBox.Items.Clear();
+
+            ChatDisplay.Text +=
+                "🤖 Chatbot: All cybersecurity tasks have been cleared.\n\n";
+
+            UpdateTaskStatus();
+        }
         private void CompleteTaskButton_Click(object sender, RoutedEventArgs e)
         {
             int index = TaskListBox.SelectedIndex;

@@ -206,28 +206,43 @@
                                      Height="150"
                                      Margin="0,0,0,8"/>
 
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel>
 
-                                <Button Content="COMPLETE"
-                                        Width="100"
+                                <StackPanel Orientation="Horizontal">
+
+                                    <Button Content="COMPLETE"
+                                            Width="100"
+                                            Height="35"
+                                            Margin="0,0,5,5"
+                                            Background="#16A34A"
+                                            Foreground="White"
+                                            FontWeight="Bold"
+                                            BorderThickness="0"
+                                            Cursor="Hand"
+                                            Click="CompleteTaskButton_Click"/>
+
+                                    <Button Content="REMOVE"
+                                            Width="90"
+                                            Height="35"
+                                            Margin="0,0,0,5"
+                                            Background="#DC2626"
+                                            Foreground="White"
+                                            FontWeight="Bold"
+                                            BorderThickness="0"
+                                            Cursor="Hand"
+                                            Click="RemoveTaskButton_Click"/>
+
+                                </StackPanel>
+
+                                <Button Content="CLEAR ALL"
+                                        Width="195"
                                         Height="35"
-                                        Margin="0,0,5,0"
-                                        Background="#16A34A"
+                                        Background="#64748B"
                                         Foreground="White"
                                         FontWeight="Bold"
                                         BorderThickness="0"
                                         Cursor="Hand"
-                                        Click="CompleteTaskButton_Click"/>
-
-                                <Button Content="REMOVE"
-                                        Width="90"
-                                        Height="35"
-                                        Background="#DC2626"
-                                        Foreground="White"
-                                        FontWeight="Bold"
-                                        BorderThickness="0"
-                                        Cursor="Hand"
-                                        Click="RemoveTaskButton_Click"/>
+                                        Click="ClearAllTasksButton_Click"/>
 
                             </StackPanel>
 
