@@ -152,8 +152,13 @@ namespace CybersecurityChatbot_Part2
 
             taskManager.CompleteTask(index);
 
+            string completedTask = taskManager.Tasks[index].Description;
+
             TaskListBox.Items[index] =
-                "☑ " + taskManager.Tasks[index].Description;
+                "☑ " + completedTask;
+
+            ChatDisplay.Text +=
+                $"🤖 Chatbot: Security task completed — \"{completedTask}\"\n\n";
 
             UpdateTaskStatus();
         }
@@ -168,9 +173,14 @@ namespace CybersecurityChatbot_Part2
                 return;
             }
 
+            string removedTask = taskManager.Tasks[index].Description;
+
             taskManager.RemoveTask(index);
 
             TaskListBox.Items.RemoveAt(index);
+
+            ChatDisplay.Text +=
+                $"🤖 Chatbot: Security task removed — \"{removedTask}\"\n\n";
 
             UpdateTaskStatus();
         }
