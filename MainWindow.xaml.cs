@@ -128,6 +128,8 @@ namespace CybersecurityChatbot_Part2
             TaskInput.Clear();
 
             TaskListBox.Items.Add("⬜ " + task);
+            ChatDisplay.Text +=
+    $"🤖 Chatbot: Security task added — \"{task}\"\n\n";
 
             UpdateTaskStatus();
         }
